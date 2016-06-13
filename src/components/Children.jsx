@@ -23,7 +23,7 @@ Children.defaultProps={
     childs:[]
 }
 Children.propTypes={
-    childs:PropTypes.object,
+    childs:PropTypes.arrayOf(PropTypes.object),
     TreeNode:PropTypes.func.isRequired,
     depth:PropTypes.number.isRequired,
     Header:PropTypes.func.isRequired,

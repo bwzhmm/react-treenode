@@ -5,23 +5,17 @@ import icons from './icons.json'
 
 import _ from 'lodash'
 
-const styles = {
+const STYLES = {
     header:{
         position:'relative',
         width: '100%',
         height: '32px',
         display: 'flex',
         alignItems: 'center',
-        color: '#888888'
-    },
-    active:{
-        backgroundColor: 'rgba(255, 255, 255, 0.15)'
+        color: '#cccccc'
     },
     arrow:{
         transition: 'transform 300ms ease'
-    },
-    updown: {
-        transform: 'rotate(90deg)'
     }
 }
 
@@ -36,22 +30,27 @@ class Header extends React.Component {
             depth += 1
         }
 
+        let styles = {}
+
         if (node.active) {
-            styles.header = _.merge({}, styles.header, styles.active)
+            styles.header = {backgroundColor: 'rgba(255, 255, 255, 0.15)'}
         }
+        styles.header = _.merge({}, styles.header, {paddingLeft:`${depth*20}px`})
+
         if (node.open) {
-            styles.arrow = _.merge({}, styles.arrow, styles.updown)
+            styles.arrow = {transform: 'rotate(90deg)'}
         }
-        styles.header.paddingLeft = `${depth*20}px`
+
+        styles.arrow = _.merge({}, icons.arrow.style, styles.arrow)
+
+        styles = _.merge(styles,STYLES)
         return (
             <div style={styles.header}>
-
                 {node.leaf?null:<SvgIcon {...icons.arrow} style={styles.arrow}/>}
 
                 {node.leaf?<SvgIcon {...icons.file}/>:<SvgIcon {...dirIcon}/>}
 
                 {node.name}
-
             </div>
         )
     }

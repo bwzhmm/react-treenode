@@ -38,7 +38,7 @@ class TreeNode extends React.Component {
     }
     renderChilds=(node,Header,depth,onClick,Childs)=>{
         return (
-            <div className={node.open?null:STYLES.hide}>
+            <div style={node.open?null:STYLES.hide}>
                 <Childs
                     TreeNode={TreeNode}
                     Header={Header}
