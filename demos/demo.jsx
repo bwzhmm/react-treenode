@@ -25,9 +25,12 @@ class Demo extends React.Component {
     render() {
         return (
             <div style={styles.demo}>
-                <TreeNode node={Node} Header={Header} onClick={this.onClick}/>
+                <TreeNode node={Node} Header={this.getHeader}/>
             </div>
         )
+    }
+    getHeader=(props)=>{
+        return <Header {...props} onClick={this.onClick}/>
     }
     onClick=(e,node)=>{
         e.preventDefault()

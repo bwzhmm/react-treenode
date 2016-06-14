@@ -3,19 +3,26 @@ import React,{PropTypes} from 'react'
 import SvgIcon from './SvgIcon/SvgIcon.jsx'
 import icons from './icons.json'
 
-import _ from 'lodash'
+import radium from 'Radium'
 
-const STYLES = {
+const defaultStyles={
     header:{
         position:'relative',
         width: '100%',
         height: '32px',
         display: 'flex',
         alignItems: 'center',
-        color: '#cccccc'
+        color: '#9DA5AB',
+        cursor:'pointer'
+    },
+    active:{
+        backgroundColor: 'rgba(255, 255, 255, 0.15)'
     },
     arrow:{
         transition: 'transform 300ms ease'
+    },
+    open:{
+        transform: 'rotate(90deg)'
     }
 }
 
@@ -24,39 +31,57 @@ class Header extends React.Component {
         super(props)
     }
     render() {
-        let {node,depth} = this.props
-        const dirIcon = depth==0?icons.root:icons.dir
+        let {node,depth,styles,depthSize,fileIcon,dirIcon,rootIcon} = this.props
+        const parentIcon = depth==0?rootIcon:dirIcon
+
         if (node.leaf) {
             depth += 1
         }
 
-        let styles = {}
-
+        let headerStyles=[defaultStyles.header,{paddingLeft:`${depth*depthSize}px`}]
         if (node.active) {
-            styles.header = {backgroundColor: 'rgba(255, 255, 255, 0.15)'}
+            headerStyles.push(defaultStyles.active, styles.active)
         }
-        styles.header = _.merge({}, styles.header, {paddingLeft:`${depth*20}px`})
+        headerStyles.push(styles.header)
 
+        let arrowStyles=[defaultStyles.arrow,icons.arrow.style]
         if (node.open) {
-            styles.arrow = {transform: 'rotate(90deg)'}
+            arrowStyles.push(defaultStyles.open, styles.open)
         }
+        arrowStyles.push(styles.arrow)
 
-        styles.arrow = _.merge({}, icons.arrow.style, styles.arrow)
-
-        styles = _.merge(styles,STYLES)
         return (
-            <div style={styles.header}>
-                {node.leaf?null:<SvgIcon {...icons.arrow} style={styles.arrow}/>}
+            <div style={headerStyles} onClick={this.handleClick} name="header">
+                {node.leaf?null:<SvgIcon style={arrowStyles} {...icons.arrow}/>}
 
-                {node.leaf?<SvgIcon {...icons.file}/>:<SvgIcon {...dirIcon}/>}
+                {node.leaf?<SvgIcon {...fileIcon}/>:<SvgIcon {...parentIcon}/>}
 
                 {node.name}
             </div>
         )
     }
+    handleClick=(e)=>{
+        const {node,onClick} = this.props
+        if (onClick) {
+            onClick(e,node)
+        }
+    }
+}
+Header.defaultProps={
+    styles:{},
+    depthSize:20,
+    fileIcon:icons.file,
+    dirIcon:icons.dir,
+    rootIcon:icons.root
 }
 Header.propTypes={
     node:PropTypes.object.isRequired,
-    depth:PropTypes.number.isRequired
+    depth:PropTypes.number.isRequired,
+    styles:PropTypes.object,
+    fileIcon:PropTypes.object,
+    dirIcon:PropTypes.object,
+    rootIcon:PropTypes.object,
+    depthSize:PropTypes.number,
+    onClick:PropTypes.func
 }
-export default  Header
+export default radium(Header)

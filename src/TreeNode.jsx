@@ -1,17 +1,10 @@
 import React, {PropTypes} from 'react'
 
-import Children from './components/Children.jsx'
-
 const STYLES = {
     treenode:{
         position:'relative',
         width: '100%',
         height: '100%'
-    },
-    header:{
-        position: 'relative',
-        width: '100%',
-        cursor: 'pointer'
     },
     hide:{
         display: 'none'
@@ -23,29 +16,35 @@ class TreeNode extends React.Component {
         super(props)
     }
     render() {
-        const {node,Header,depth,onClick,Childs} = this.props
+        const {node,Header,depth} = this.props
         return (
-            <div className={STYLES.treenode}>
-                <div className={STYLES.header} onClick={(e)=>{onClick(e,node)}}>
-                    <Header node={node} depth={depth}/>
-                </div>
+            <div name="treenode" style={STYLES.treenode}>
+                <Header node={node} depth={depth}/>
                 {
                     node.childs?
-                    this.renderChilds(node,Header,depth,onClick,Childs):null
+                    this.renderChilds(node,Header,depth):null
                 }
             </div>
         )
     }
-    renderChilds=(node,Header,depth,onClick,Childs)=>{
+    renderChilds=(node,Header,depth)=>{
+        if (!node.childs) {
+            return
+        }
         return (
-            <div style={node.open?null:STYLES.hide}>
-                <Childs
-                    TreeNode={TreeNode}
-                    Header={Header}
-                    childs={node.childs}
-                    depth={depth+1}
-                    onClick={onClick}
-                />
+            <div name="childs" style={node.open?null:STYLES.hide}>
+                {
+                    node.childs.map((child,key)=>{
+                        return (
+                            <TreeNode
+                                key={key}
+                                Header={Header}
+                                node={child}
+                                depth={depth+1}
+                            />
+                        )
+                    })
+                }
             </div>
         )
     }
@@ -53,15 +52,11 @@ class TreeNode extends React.Component {
 
 TreeNode.defaultProps={
     node:{name:'root'},
-    depth:0,
-    onClick:()=>{},
-    Childs:Children
+    depth:0
 }
 TreeNode.propTypes={
     node:PropTypes.object,
     Header:PropTypes.func.isRequired,
-    depth:PropTypes.number,
-    onClick:PropTypes.func,
-    Childs:PropTypes.func.isRequired
+    depth:PropTypes.number
 }
 module.exports = TreeNode

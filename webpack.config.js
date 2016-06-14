@@ -42,18 +42,5 @@ module.exports = {
             Header:'src/components/Header.jsx',
             Children:'src/components/Children.jsx'
         }
-    },
-    plugins:[
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: {
-                except: ['exports', 'require']
-            },
-            compress: {
-                warnings: false, // Suppress uglification warnings
-            },
-            output: {
-                comments: false,
-            }
-        })
-    ]
+    }
 }
