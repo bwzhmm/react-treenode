@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import TreeNode from 'TreeNode'
-import Header from 'Header'
+import TreeNode,{Header} from '../index.js'
 
 import Node from './node.json'
 

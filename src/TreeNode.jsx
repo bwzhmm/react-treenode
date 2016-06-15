@@ -59,4 +59,4 @@ TreeNode.propTypes={
     Header:PropTypes.func.isRequired,
     depth:PropTypes.number
 }
-module.exports = TreeNode
+export default TreeNode

@@ -1,4 +1,5 @@
-module.exports = {
-    TreeNode:require('./src/TreeNode.jsx'),
-    Header:require('./src/components/Header.jsx')
-}
+import TreeNode from './src/TreeNode.jsx'
+import Header from './src/components/Header.jsx'
+
+export default TreeNode
+export {Header}
