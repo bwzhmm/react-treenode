@@ -1,6 +1,9 @@
 {
     "name": "root",
     "childs": [{
+        "name": "node_3",
+        "leaf": true
+    }, {
         "name": "node_1",
         "childs": [{
             "name": "node_1_1",
@@ -12,6 +15,9 @@
     }, {
         "name": "node_2",
         "childs": [{
+            "name": "node_2_3",
+            "leaf": true
+        }, {
             "name": "node_2_1",
             "leaf": true
         }, {

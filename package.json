@@ -1,6 +1,6 @@
 {
     "name": "react-treenode",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "a React Tree UI Component",
     "main": "index.js",
     "scripts": {

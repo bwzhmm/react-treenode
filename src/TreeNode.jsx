@@ -16,20 +16,23 @@ class TreeNode extends React.Component {
         super(props)
     }
     render() {
-        const {node,Header,depth} = this.props
+        const {node,Header,depth,sortFn} = this.props
         return (
             <div name="treenode" style={STYLES.treenode}>
                 <Header node={node} depth={depth}/>
                 {
                     node.childs?
-                    this.renderChilds(node,Header,depth):null
+                    this.renderChilds(node,Header,depth,sortFn):null
                 }
             </div>
         )
     }
-    renderChilds=(node,Header,depth)=>{
+    renderChilds=(node,Header,depth,sortFn)=>{
         if (!node.childs) {
             return
+        }
+        if (sortFn) {
+            node.childs.sort(sortFn)
         }
         return (
             <div name="childs" style={node.open?null:STYLES.hide}>
@@ -41,6 +44,7 @@ class TreeNode extends React.Component {
                                 Header={Header}
                                 node={child}
                                 depth={depth+1}
+                                sortFn={sortFn}
                             />
                         )
                     })
@@ -57,6 +61,7 @@ TreeNode.defaultProps={
 TreeNode.propTypes={
     node:PropTypes.object,
     Header:PropTypes.func.isRequired,
-    depth:PropTypes.number
+    depth:PropTypes.number,
+    sortFn:PropTypes.func
 }
 export default TreeNode

@@ -24,7 +24,7 @@ class Demo extends React.Component {
     render() {
         return (
             <div style={styles.demo}>
-                <TreeNode node={Node} Header={this.getHeader}/>
+                <TreeNode node={Node} Header={this.getHeader} sortFn={this.sortFn}/>
             </div>
         )
     }
@@ -40,6 +40,14 @@ class Demo extends React.Component {
         this.setState({
             cursor:node
         })
+    }
+    sortFn=(node1,node2)=>{
+        if (node1.leaf === node2.leaf) {
+            return node1.name > node2.name?1:-1
+        }else if (!node1.leaf) {
+            return -1
+        }
+        return 1
     }
 }
 ReactDOM.render(
