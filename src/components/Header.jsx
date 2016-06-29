@@ -84,4 +84,4 @@ Header.propTypes={
     depthSize:PropTypes.number,
     onClick:PropTypes.func
 }
-export default radium(Header)
+module.exports = radium(Header)
