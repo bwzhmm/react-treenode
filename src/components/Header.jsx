@@ -1,6 +1,6 @@
 import React,{PropTypes} from 'react'
 
-import SvgIcon from './SvgIcon/SvgIcon.jsx'
+import SvgIcon from './SvgIcon/SvgIcon'
 import icons from './icons.json'
 
 import radium from 'Radium'
