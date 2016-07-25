@@ -65,4 +65,4 @@ TreeNode.propTypes={
     depth:PropTypes.number,
     sortFn:PropTypes.func
 }
-module.exports = TreeNode
+export default TreeNode

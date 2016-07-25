@@ -13,7 +13,9 @@ var _Header = require('./lib/components/Header.js');
 
 var _Header2 = _interopRequireDefault(_Header);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 exports.TreeNode = _TreeNode2.default;
 exports.Header = _Header2.default;

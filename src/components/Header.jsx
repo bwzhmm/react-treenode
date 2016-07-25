@@ -3,7 +3,7 @@ import React,{PropTypes} from 'react'
 import SvgIcon from './SvgIcon/SvgIcon'
 import icons from './icons.json'
 
-import radium from 'Radium'
+import _ from 'lodash'
 
 const defaultStyles={
     header:{
@@ -38,17 +38,17 @@ class Header extends React.Component {
             depth += 1
         }
 
-        let headerStyles=[defaultStyles.header,{paddingLeft:`${depth*depthSize}px`}]
+        let headerStyles=_.merge({},defaultStyles.header,{paddingLeft:`${depth*depthSize}px`})
         if (node.active) {
-            headerStyles.push(defaultStyles.active, styles.active)
+            _.merge(headerStyles,defaultStyles.active,styles.active)
         }
-        headerStyles.push(styles.header)
+        _.merge(headerStyles,styles.header)
 
-        let arrowStyles=[defaultStyles.arrow,icons.arrow.style]
+        let arrowStyles=_.merge({},defaultStyles.arrow,icons.arrow.style)
         if (node.open) {
-            arrowStyles.push(defaultStyles.open, styles.open)
+            _.merge(arrowStyles,defaultStyles.open, styles.open)
         }
-        arrowStyles.push(styles.arrow)
+        _.merge(arrowStyles,styles.arrow)
 
         return (
             <div style={headerStyles} onClick={this.handleClick} name="header">
@@ -84,4 +84,4 @@ Header.propTypes={
     depthSize:PropTypes.number,
     onClick:PropTypes.func
 }
-module.exports = radium(Header)
+export default Header

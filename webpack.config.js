@@ -7,7 +7,7 @@ module.exports = {
         demo:'./demos/demo.jsx'
     },
     output:{
-        path:'dist/',
+        path:'assets/',
         filename:'[name].js',
         publicPath:'assets/'
     },
